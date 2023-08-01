@@ -84,39 +84,3 @@ rightClick.addEventListener("mouseenter", () => {
 
 leftClick.addEventListener("mouseleave", setIntervalfn);
 rightClick.addEventListener("mouseleave", setIntervalfn);
-
-function getTimeLeftUntilTomorrowHour(hour, minute) {
-  const now = new Date();
-  const tomorrow = new Date(now);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  tomorrow.setHours(hour, minute, 0, 0);
-
-  const timeDifference = tomorrow - now;
-  if (timeDifference < 0) {
-    // If the specified time is earlier than the current time, add 24 hours
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    timeDifference = tomorrow - now;
-  }
-
-  const millisecondsInMinute = 1000 * 60;
-  const millisecondsInHour = millisecondsInMinute * 60;
-
-  const hoursLeft = Math.floor(timeDifference / millisecondsInHour);
-  const minutesLeft = Math.floor(
-    (timeDifference % millisecondsInHour) / millisecondsInMinute
-  );
-
-  return { hours: hoursLeft, minutes: minutesLeft };
-}
-
-// Usage example: Calculate time left until 11:30 AM tomorrow
-const desiredHour = 11;
-const desiredMinute = 30;
-const timeLeft = getTimeLeftUntilTomorrowHour(desiredHour, desiredMinute);
-console.log(
-  `Time left until ${desiredHour}:${desiredMinute}:`,
-  timeLeft.hours,
-  "hours and",
-  timeLeft.minutes,
-  "minutes"
-);
